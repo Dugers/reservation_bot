@@ -1,11 +1,11 @@
 from abc import ABC, abstractmethod
-from typing import List
+from typing import List, Optional
 
 from db.models import Reservation, ReservationUpdate
 
 class ReservationRepositoryBase(ABC):
     @abstractmethod
-    async def get_by_id(self, id: int) -> Reservation:
+    async def get_by_id(self, id: int) -> Optional[Reservation]:
         raise NotImplementedError()
 
     @abstractmethod
