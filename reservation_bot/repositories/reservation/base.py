@@ -5,6 +5,10 @@ from db.models import Reservation, ReservationUpdate
 
 class ReservationRepositoryBase(ABC):
     @abstractmethod
+    async def get_by_id(self, id: int) -> Reservation:
+        raise NotImplementedError()
+
+    @abstractmethod
     async def get_by_user(self, user_id: int) -> List[Reservation]:
         raise NotImplementedError()
     
