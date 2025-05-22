@@ -10,7 +10,7 @@ class TableRepositoryBase(ABC):
         raise NotImplementedError()
     
     @abstractmethod
-    async def get_free_from_interval(self, start_datetime: datetime, end_datetime: datetime) -> List[Table]:
+    async def get_free_from_interval(self, start_datetime: datetime, end_datetime: datetime, offset: int = 0, limit: int = 10) -> List[Table]:
         raise NotImplementedError()
     
     @abstractmethod
