@@ -1,0 +1,37 @@
+services:
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bot
+    depends_on:
+      db:
+        condition: service_started
+    env_file:
+      - ./.env
+    networks:
+      - app_network_db
+      - app_network_redis
+      
+  db:
+    image: mysql
+    container_name: db
+    env_file:
+      - ./.env
+    networks:
+      - app_network_db
+  
+  redis:
+    image: redis:alpine
+    container_name: redis
+    env_file:
+      - ./.env
+    networks:
+      - app_network_redis
+
+
+networks:
+  app_network_db:
+    driver: bridge
+  app_network_redis:
+    driver: bridge

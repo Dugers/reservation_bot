@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "reservation-bot"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+aiogram = "^3.20.0.post0"
+pydantic = "^2.11.4"
+pydantic-settings = "^2.9.1"
+aiogram-dialog = "^2.3.1"
+aiomysql = "^0.2.0"
+mysql-connector-python = "^9.3.0"
+
+[tool.poetry.scripts]
+dev = "main:run_dev"
+prod = "main:run_prod"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.5"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

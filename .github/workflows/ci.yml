@@ -1,0 +1,56 @@
+name: ci
+
+on:
+  push:
+      branches: ["master", "dev"]
+  pull_request:
+      branches: ["master", "dev"]
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Clone the repository
+              uses: actions/checkout@v4
+
+            - name: Install Python
+              uses: actions/setup-python@v5
+              with:
+                python-version: "3.13"
+            
+            - name: Install poetry
+              run: pip install poetry
+            
+            - name: Cache dependencies
+              uses: actions/cache@v3
+              with:
+                path: ~/.cache/pypoetry
+                key: ${{ runner.os }}-poetry-${{ hashFiles('pyproject.toml') }}
+            
+            - name: Install dependencies
+              run: poetry install --all-extras --all-groups
+
+            - name: Run Tests
+              run: poetry run pytest
+    
+    docker-compose-check:
+        runs-on: ubuntu-latest
+
+        steps:
+        - name: Checkout repository
+          uses: actions/checkout@v3
+
+        - name: Set up Docker Buildx
+          uses: docker/setup-buildx-action@v2
+    
+        - name: Docker Compose - Build and Up
+          run: |
+            docker-compose -f docker-compose.yml up -d --build
+            
+        - name: Run tests or checks
+          run: |
+            docker ps
+            
+        - name: Tear down Docker Compose
+          run: |
+            docker-compose -f docker-compose.yml down
