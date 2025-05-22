@@ -80,3 +80,18 @@ def log_args_returns(args_level=logging.DEBUG, return_level=logging.INFO):
         return async_wrapper if is_async else sync_wrapper
     
     return decorator
+
+def combined_logger(args_level=logging.DEBUG, return_level=logging.INFO, exception_level=logging.ERROR):
+    def decorator(func):
+        func_with_args_log = log_args_returns(args_level, return_level)(func)
+        func_with_all_logs = log_exception(exception_level)(func_with_args_log)
+        
+        return wraps(func)(func_with_all_logs)
+    
+    return decorator
+
+__all__ = [
+    "log_exception",
+    "log_args_returns",
+    "combined_logger"
+]
