@@ -9,4 +9,5 @@ WORKDIR /app
 COPY . .
 RUN poetry install --no-interaction --no-ansi
 
+CMD ["alembic", "upgrade", "head"]
 ENTRYPOINT [ "poetry", "run", "prod" ]
