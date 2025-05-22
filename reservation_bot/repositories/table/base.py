@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from datetime import datetime
-from typing import Optional
+from typing import List, Optional
 
 from db.models import Table
 
@@ -10,7 +10,7 @@ class TableRepositoryBase(ABC):
         raise NotImplementedError()
     
     @abstractmethod
-    async def get_free_from_interval(self, start_datetime: datetime, end_datetime: datetime) -> Optional[Table]:
+    async def get_free_from_interval(self, start_datetime: datetime, end_datetime: datetime) -> List[Table]:
         raise NotImplementedError()
     
     @abstractmethod
