@@ -5,7 +5,7 @@ from reservation_bot.di import Container
 from reservation_bot.repositories import ReservationRepositoryBase, Reservation, ReservationUpdate
 
 @inject
-class TableService:
+class ReservationService:
     def __init__(self, repository: ReservationRepositoryBase = Provide[Container.reservation_repository]):
         self._repository = repository
 
