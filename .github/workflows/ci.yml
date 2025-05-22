@@ -39,6 +39,9 @@ jobs:
         steps:
         - name: Checkout repository
           uses: actions/checkout@v3
+
+        - name: Create .env from example
+          run: cp example.env .env
     
         - name: Run docker compose
           uses: hoverkraft-tech/compose-action@v2.0.1
