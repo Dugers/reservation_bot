@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List, Optional
 
-from db.models import Reservation, ReservationUpdate
+from reservation_bot.db.models import Reservation, ReservationUpdate
 
 class ReservationRepositoryBase(ABC):
     @abstractmethod

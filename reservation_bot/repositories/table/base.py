@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from datetime import datetime
 from typing import List, Optional
 
-from db.models import Table
+from reservation_bot.db.models import Table
 
 class TableRepositoryBase(ABC):
     @abstractmethod
