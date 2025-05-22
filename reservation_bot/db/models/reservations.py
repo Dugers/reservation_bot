@@ -11,6 +11,7 @@ class Reservation(SQLModel, table=True):
     user_tg_id: int
     start_datetime: datetime
     end_datetime: datetime
+    count_guests: int
 
     table_id: int = Field(foreign_key="table.id")
     table: 'Table' = Relationship(back_populates="reservations")
@@ -21,5 +22,6 @@ class ReservationUpdate(SQLModel):
     user_tg_id: Optional[int] = None
     start_datetime: Optional[datetime] = None
     end_datetime: Optional[datetime] = None
+    count_guests: Optional[int] = None
 
     table_id: Optional[int] = None
