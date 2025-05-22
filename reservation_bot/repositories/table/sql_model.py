@@ -26,12 +26,12 @@ class TableRepositorySQLModel(TableRepositoryBase):
                 Reservation.start_datetime < end_datetime,
                 Reservation.end_datetime > start_datetime
             )
-            .offset(offset)
-            .limit(limit)
         )
         query = (
             select(Table)
             .where(~exists(subquery))
+            .offset(offset)
+            .limit(limit)
         )
         execute_result = await self._session.execute(query)
         return execute_result.scalars().all()
