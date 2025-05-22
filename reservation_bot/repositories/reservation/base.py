@@ -13,6 +13,10 @@ class ReservationRepositoryBase(ABC):
         raise NotImplementedError()
     
     @abstractmethod
+    async def create(self, reservation: Reservation) -> Reservation:
+        raise NotImplementedError()
+    
+    @abstractmethod
     async def update(self, reservation_update: ReservationUpdate) -> Reservation:
         raise NotImplementedError()
     
