@@ -5,9 +5,10 @@ from functools import wraps
 def log_exception(level=logging.ERROR):
     def decorator(func):
         is_async = inspect.iscoroutinefunction(func)
+        logger = logging.getLogger(func.__module__)
 
         def log_exception(e: Exception):
-            logging.log(
+            logger.log(
                 level=level,
                 msg=f"Exception in {func.__name__}: {str(e)}",
                 exc_info=True
@@ -36,6 +37,7 @@ def log_exception(level=logging.ERROR):
 def log_args_returns(args_level=logging.DEBUG, return_level=logging.INFO):
     def decorator(func):
         is_async = inspect.iscoroutinefunction(func)
+        logger = logging.getLogger(func.__module__)
         
         def log_args(*args, **kwargs):
             sig = inspect.signature(func)
@@ -46,13 +48,13 @@ def log_args_returns(args_level=logging.DEBUG, return_level=logging.INFO):
             for name, value in bound_args.arguments.items():
                 args_str.append(f"{name}={repr(value)}")
             
-            logging.log(
+            logger.log(
                 level=args_level,
                 msg=f"Calling {func.__name__} with args: {', '.join(args_str)}"
             )
 
         def log_return(value):
-            logging.log(
+            logger.log(
                 level=return_level,
                 msg=f"Function {func.__name__} returned: {repr(value)}"
             )
