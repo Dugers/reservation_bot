@@ -17,8 +17,10 @@ class ReservationRepositorySQLModel(ReservationRepositoryBase):
         return execute_result.scalar_one_or_none()
 
     @combined_logger()
-    async def get_by_user(self, user_id: int, offset: int = 0, limit: int = 10) -> List[Reservation]:
-        query = select(Reservation).where(Reservation.user_tg_id==user_id).offset(offset).limit(limit)
+    async def get_by_user(self, user_id: int, offset: Optional[int] = None, limit: Optional[int] = None) -> List[Reservation]:
+        query = select(Reservation).where(Reservation.user_tg_id==user_id)
+        if (limit and offset):
+            query = query.offset(offset).limit(limit)
         execute_result = await self._session.execute(query)
         return execute_result.scalars().all()
     

@@ -18,7 +18,7 @@ class TableRepositorySQLModel(TableRepositoryBase):
         return execute_result.scalar_one_or_none()
 
     @combined_logger()
-    async def get_free_from_interval(self, start_datetime: datetime, end_datetime: datetime, offset: int = 0, limit: int = 10) -> List[Table]:
+    async def get_free_from_interval(self, start_datetime: datetime, end_datetime: datetime, offset: Optional[int] = None, limit: Optional[int] = None) -> List[Table]:
         subquery = (
             select(Reservation)
             .where(
@@ -30,9 +30,9 @@ class TableRepositorySQLModel(TableRepositoryBase):
         query = (
             select(Table)
             .where(~exists(subquery))
-            .offset(offset)
-            .limit(limit)
         )
+        if (limit and offset):
+            query = query.offset(offset).limit(limit)
         execute_result = await self._session.execute(query)
         return execute_result.scalars().all()
 

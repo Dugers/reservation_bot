@@ -9,7 +9,7 @@ class ReservationRepositoryBase(ABC):
         raise NotImplementedError()
 
     @abstractmethod
-    async def get_by_user(self, user_id: int, offset: int = 0, limit: int = 10) -> List[Reservation]:
+    async def get_by_user(self, user_id: int, offset: Optional[int] = None, limit: Optional[int] = None) -> List[Reservation]:
         raise NotImplementedError()
     
     @abstractmethod
