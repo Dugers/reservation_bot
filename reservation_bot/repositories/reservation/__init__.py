@@ -1,1 +1,1 @@
-from .base import ReservationRepositoryBase, ReservationUpdate
+from .base import ReservationRepositoryBase, Reservation, ReservationUpdate

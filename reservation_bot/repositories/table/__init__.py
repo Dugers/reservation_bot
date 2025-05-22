@@ -1,1 +1,1 @@
-from .base import TableRepositoryBase
+from .base import TableRepositoryBase, Table

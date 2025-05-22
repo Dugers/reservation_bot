@@ -1,2 +1,2 @@
-from .table import TableRepositoryBase
-from .reservation import ReservationRepositoryBase
+from .table import TableRepositoryBase, Table
+from .reservation import ReservationRepositoryBase, Reservation, ReservationUpdate
