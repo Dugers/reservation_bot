@@ -32,3 +32,51 @@ def log_exception(level=logging.ERROR):
         return async_wrapper if is_async else sync_wrapper
     
     return decorator
+
+def log_args_returns(args_level=logging.DEBUG, return_level=logging.INFO):
+    def decorator(func):
+        is_async = inspect.iscoroutinefunction(func)
+        
+        def log_args(*args, **kwargs):
+            sig = inspect.signature(func)
+            bound_args = sig.bind(*args, **kwargs)
+            bound_args.apply_defaults()
+            
+            args_str = []
+            for name, value in bound_args.arguments.items():
+                args_str.append(f"{name}={repr(value)}")
+            
+            logging.log(
+                level=args_level,
+                msg=f"Calling {func.__name__} with args: {', '.join(args_str)}"
+            )
+
+        def log_return(value):
+            logging.log(
+                level=return_level,
+                msg=f"Function {func.__name__} returned: {repr(value)}"
+            )
+
+        @wraps(func)
+        def sync_wrapper(*args, **kwargs):
+            log_args(*args, **kwargs)
+            try:
+                result = func(*args, **kwargs)
+                log_return(result)
+                return result
+            except Exception as e:
+                raise
+
+        @wraps(func)
+        async def async_wrapper(*args, **kwargs):
+            log_args(*args, **kwargs)
+            try:
+                result = await func(*args, **kwargs)
+                log_return(result)
+                return result
+            except Exception as e:
+                raise
+
+        return async_wrapper if is_async else sync_wrapper
+    
+    return decorator

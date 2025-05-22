@@ -1,1 +1,1 @@
-from .logger import log_exception
+from .logger import log_exception, log_args_returns
