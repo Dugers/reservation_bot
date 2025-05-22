@@ -1,1 +1,2 @@
 from .table import TableRepositoryBase
+from .reservation import ReservationRepositoryBase

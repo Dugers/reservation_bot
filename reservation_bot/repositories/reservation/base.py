@@ -1,0 +1,17 @@
+from abc import ABC, abstractmethod
+from typing import List
+
+from db.models import Reservation, ReservationUpdate
+
+class ReservationRepositoryBase(ABC):
+    @abstractmethod
+    async def get_by_user(self, user_id: int) -> List[Reservation]:
+        raise NotImplementedError()
+    
+    @abstractmethod
+    async def update(self, reservation: Reservation) -> Reservation:
+        raise NotImplementedError()
+    
+    @abstractmethod
+    async def delete(self, id: int):
+        raise NotImplementedError()
