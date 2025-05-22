@@ -14,3 +14,12 @@ class Reservation(SQLModel, table=True):
 
     table_id: int = Field(foreign_key="table.id")
     table: 'Table' = Relationship(back_populates="reservations")
+
+class ReservationUpdate(SQLModel):
+    id: int
+    
+    user_tg_id: Optional[int] = None
+    start_datetime: Optional[datetime] = None
+    end_datetime: Optional[datetime] = None
+
+    table_id: Optional[int] = None
