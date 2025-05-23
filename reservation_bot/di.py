@@ -3,6 +3,7 @@ from dependency_injector import containers, providers
 from reservation_bot.db.connection import get_session
 from reservation_bot.repositories.table.sql_model import TableRepositorySQLModel
 from reservation_bot.repositories.reservation.sql_model import ReservationRepositorySQLModel
+from reservation_bot.services import ReservationService, TableService
 
 class Container(containers.DeclarativeContainer):
     session_provider = providers.Resource(get_session)
@@ -15,6 +16,16 @@ class Container(containers.DeclarativeContainer):
     reservation_repository = providers.Factory(
         ReservationRepositorySQLModel,
         session=session_provider
+    )
+
+    reservation_service = providers.Factory(
+        ReservationService,
+        repository=reservation_repository
+    )
+
+    table_service = providers.Factory(
+        TableService,
+        repository=table_repository
     )
 
 container = Container()
