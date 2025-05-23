@@ -1,12 +1,9 @@
 from typing import List, Optional
-from dependency_injector.wiring import inject, Provide
 
-from reservation_bot.di import Container
 from reservation_bot.repositories import ReservationRepositoryBase, Reservation, ReservationUpdate
 
-@inject
 class ReservationService:
-    def __init__(self, repository: ReservationRepositoryBase = Provide[Container.reservation_repository]):
+    def __init__(self, repository: ReservationRepositoryBase):
         self._repository = repository
 
     async def get_by_id(self, id: int) -> Optional[Reservation]:

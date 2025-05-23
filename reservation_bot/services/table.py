@@ -1,13 +1,10 @@
 from datetime import datetime
 from typing import List, Optional
-from dependency_injector.wiring import inject, Provide
 
-from reservation_bot.di import Container
 from reservation_bot.repositories import TableRepositoryBase, Table
 
-@inject
 class TableService:
-    def __init__(self, repository: TableRepositoryBase = Provide[Container.table_repository]):
+    def __init__(self, repository: TableRepositoryBase):
         self._repository = repository
 
     async def get_by_id(self, id: int) -> Optional[Table]:
