@@ -19,7 +19,7 @@ dialog = Dialog(
         Format("Добро пожаловать, {user.full_name}!"),
         Row(
             Button(Const("🕑 Забронировать столик"), id="book",
-                   on_click=on_click_book_list),
+                   on_click=on_click_book),
             Button(Const("📖 Мои бронирования"), id="book_list",
                 on_click=on_click_book_list)
         ),
