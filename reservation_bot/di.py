@@ -5,10 +5,6 @@ from reservation_bot.repositories.table.sql_model import TableRepositorySQLModel
 from reservation_bot.repositories.reservation.sql_model import ReservationRepositorySQLModel
 
 class Container(containers.DeclarativeContainer):
-    wiring_config = containers.WiringConfiguration(modules=[
-        "reservation_bot.services"
-    ])
-
     session_provider = providers.Resource(get_session)
 
     table_repository = providers.Factory(
