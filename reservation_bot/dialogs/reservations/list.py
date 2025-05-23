@@ -18,17 +18,16 @@ async def getter(dialog_manager: DialogManager, service: ReservationService = Pr
     user_id = dialog_manager.event.from_user.id
     reservations = await service.get_by_user(user_id)
 
-    getter_data["reservations"] = reservations
-    getter_data["reservations"] = [
-        {
-            "id": 1,
-            "table": {"name": "Красивый столик"},
-            "start_datetime": datetime.now(),
-            "end_datetime": datetime.now()
-        }
-    ]
+    getter_data["reservations"] = [{
+        "id": reservation.id,
+        "table": {
+            "name": reservation.table.name
+        },
+        "start_date_str": str(reservation.start_datetime.date()),
+        "start_time_str": reservation.start_datetime.time().strftime("%H:%M"),
+        "end_time_str": reservation.end_datetime.time().strftime("%H:%M")
+    } for reservation in reservations]
     getter_data["has_reservations"] = bool(len(reservations))
-    getter_data["format_datetime"] = format_datetime
     
     return getter_data
 
@@ -37,9 +36,6 @@ async def on_click_go_to_main_menu(callback: CallbackQuery, button: Button, dial
 
 async def on_click_scrolling_button(callback: CallbackQuery, button: Button, dialog_manager: DialogManager, reservation_id: str):
     return await dialog_manager.start(ReservationInfoSG.main, data={id: int(reservation_id)})
-
-def format_datetime(obj: datetime) -> str:
-    return str(obj)
 
 dialog = Dialog(Window(
     Const(
@@ -52,9 +48,9 @@ dialog = Dialog(Window(
     ),
     ScrollingGroup(
         Select(
-            Format("{item.table.name} | {format_datetime(item.start_datetime)} - {format_datetime(item.end_datetime)}"),
+            Format("{item[table][name]} | {item[start_date_str]} {item[start_time_str]} - {item[end_time_str]}"),
                 id="scrolling_button",
-                item_id_getter=lambda reservation: str(reservation.id),
+                item_id_getter=lambda item: item["id"],
                 items="reservations",
                 on_click=on_click_scrolling_button,
         ),
