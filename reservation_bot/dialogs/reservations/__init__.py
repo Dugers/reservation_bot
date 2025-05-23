@@ -1,7 +1,9 @@
 from aiogram_dialog import Dialog
 
 from .list import dialog as list_dialog
+from .create import dialog as create_dialog
 
 dialogs: Dialog = [
-    list_dialog
+    list_dialog,
+    create_dialog
 ]
