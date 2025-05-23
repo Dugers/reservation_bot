@@ -14,7 +14,7 @@ class Reservation(SQLModel, table=True):
     count_guests: int
 
     table_id: int = Field(foreign_key="table.id")
-    table: 'Table' = Relationship(back_populates="reservations")
+    table: 'Table' = Relationship(back_populates="reservations", sa_relationship_kwargs={"lazy": "joined"})
 
 class ReservationUpdate(SQLModel):
     id: int
