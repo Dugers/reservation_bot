@@ -3,13 +3,13 @@ from aiogram.types import CallbackQuery
 from aiogram_dialog.widgets.text import Format, Const
 from aiogram_dialog.widgets.kbd import Row, Button
 
-from reservation_bot.states import MainSG, ReservationConfigSG, ReservationsListSG
+from reservation_bot.states import MainSG, ReservationsListSG, ReservationCreateSG
 
 async def getter(dialog_manager: DialogManager, *args, **kwargs):
     return {"user": dialog_manager.event.from_user}
 
 def on_click_book(callback: CallbackQuery, button: Button, dialog_manager: DialogManager):
-    return dialog_manager.start(ReservationConfigSG.main)
+    return dialog_manager.start(ReservationCreateSG.guests_count)
 
 def on_click_book_list(callback: CallbackQuery, button: Button, dialog_manager: DialogManager):
     return dialog_manager.start(ReservationsListSG.main)
