@@ -2,12 +2,12 @@ from aiogram import Router
 from aiogram_dialog import Dialog, DialogManager
 
 from .main import dialog as main_dialog
-from .reservations import list_dialog as reservations_list_dialog
+from .reservations import dialogs as reservations_dialogs
 from reservation_bot.states import MainSG
 
 dialogs: Dialog = [
     main_dialog,
-    reservations_list_dialog
+    *reservations_dialogs
 ]
 
 dialogs_router = Router()
