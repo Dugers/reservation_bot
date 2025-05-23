@@ -3,16 +3,19 @@ from aiogram.fsm.state import StatesGroup, State
 class ReservationInfoSG(StatesGroup):
     main = State()
 
-class ReservationConfigBaseSG(StatesGroup):
+class ReservationCreateSG(StatesGroup):
     guests_count = State()
-    start_datetime = State()
-    end_datetime = State()
-
-class ReservationCreateSG(ReservationConfigBaseSG):
+    start_date = State()
+    start_time = State()
+    end_time = State()
     table_id = State()
 
-class ReservationEditSG(ReservationConfigBaseSG):
-    pass
+class ReservationEditSG(StatesGroup):
+    guests_count = State()
+    start_date = State()
+    start_time = State()
+    end_time = State()
+    table_id = State()
 
 class ReservationsListSG(StatesGroup):
     main = State()
