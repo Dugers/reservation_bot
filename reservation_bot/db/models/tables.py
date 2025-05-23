@@ -11,4 +11,4 @@ class Table(SQLModel, table=True):
     short_description: str = Field(max_length=16)
     description: Optional[str] = Field(default=None, max_length=128)
 
-    revervations: List['Reservation'] = Relationship(back_populates="table")
+    reservations: List['Reservation'] = Relationship(back_populates="table")
