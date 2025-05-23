@@ -35,7 +35,7 @@ async def on_click_go_to_main_menu(callback: CallbackQuery, button: Button, dial
     return await dialog_manager.start(MainSG.main)
 
 async def on_click_scrolling_button(callback: CallbackQuery, button: Button, dialog_manager: DialogManager, reservation_id: str):
-    return await dialog_manager.start(ReservationInfoSG.main, data={id: int(reservation_id)})
+    return await dialog_manager.start(ReservationInfoSG.main, data={"id": int(reservation_id)})
 
 dialog = Dialog(Window(
     Const(
